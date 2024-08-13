@@ -1,28 +1,25 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clean/core/theme/app_palette.dart';
-import 'package:flutter_clean/features/auth/presentation/pages/login_page.dart';
+import 'package:flutter_clean/features/auth/presentation/pages/signup_page.dart';
 import 'package:flutter_clean/features/auth/presentation/widgets/auth_button.dart';
 import 'package:flutter_clean/features/auth/presentation/widgets/auth_field.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignInPageState extends State<SignInPage> {
   final formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _nameController = TextEditingController();
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
-    _nameController.dispose();
     super.dispose();
   }
 
@@ -47,7 +44,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
-                      "Sign Up",
+                      "Sign In",
                       style: TextStyle(
                         fontSize: 50,
                         fontWeight: FontWeight.bold,
@@ -64,13 +61,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: 15,
                     ),
                     AuthField(
-                      hintText: 'Name',
-                      controller: _nameController,
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    AuthField(
                       hintText: 'Password',
                       controller: _passwordController,
                       obscureText: true,
@@ -79,26 +69,22 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: 20,
                     ),
                     const AuthGradientButton(
-                      buttonText: "Sign Up",
+                      buttonText: "Sign In",
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (context) => const SignInPage(),
-                            ));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage()));
                       },
                       child: RichText(
                           text: TextSpan(
-                              text: "Already have an account? ",
+                              text: "Don't have an account? ",
                               style: Theme.of(context).textTheme.titleMedium,
                               children: [
                             TextSpan(
-                                text: 'Sign In',
+                                text: 'Sign Up',
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleMedium
