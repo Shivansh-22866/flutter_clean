@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean/core/theme/app_palette.dart';
+import 'package:flutter_clean/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flutter_clean/features/auth/presentation/pages/login_page.dart';
 import 'package:flutter_clean/features/auth/presentation/widgets/auth_button.dart';
 import 'package:flutter_clean/features/auth/presentation/widgets/auth_field.dart';
@@ -78,7 +80,15 @@ class _SignUpPageState extends State<SignUpPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const AuthGradientButton(
+                    AuthGradientButton(
+                      onTap: () {
+                        if (formKey.currentState!.validate()) {
+                          context.read<AuthBloc>().add(AuthSignUp(
+                              email: _emailController.text.trim(),
+                              password: _passwordController.text.trim(),
+                              name: _nameController.text.trim()));
+                        }
+                      },
                       buttonText: "Sign Up",
                     ),
                     const SizedBox(
