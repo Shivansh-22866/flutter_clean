@@ -7,21 +7,17 @@ import 'package:flutter_clean/features/auth/data/repositories/auth_repository_im
 import 'package:flutter_clean/features/auth/domain/useCases/user_sign_up.dart';
 import 'package:flutter_clean/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flutter_clean/features/auth/presentation/pages/login_page.dart';
+import 'package:flutter_clean/init_dependencies.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final supabase = await Supabase.initialize(
-    url: AppSecrets.supabaseUrl,
-    anonKey: AppSecrets.supabaseKey,
-  );
+  await initDependencies();
 
   runApp(MultiBlocProvider(providers: [
     BlocProvider(
-        create: (_) => AuthBloc(
-            userSignup: UserSignUp(
-                AuthRepositoryImpl(AuthRemoteDataSourceImpl(supabase.client)))))
+        create: (_) => serviceLocator<AuthBloc>())
   ], child: const MyApp()));
 }
 
